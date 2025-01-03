@@ -1,12 +1,34 @@
-/* Estilo general para el contenedor del ListView */
-.list-view {
+/* Variables para el modo claro */
+html.light-mode {
+    --list-bg-color: #f7f7f7;
+    --list-border-color: #ccc;
+    --list-item-color: #333;
+    --list-item-hover-bg-color: #e1e1e1;
+    --list-item-hover-color: #000;
+    --list-item-selected-bg-color: #cce5ff;
+    --list-item-selected-color: #0056b3;
+  }
+  
+  /* Variables para el modo oscuro */
+  html.dark-mode {
+    --list-bg-color: #1e1e1e;
+    --list-border-color: #333;
+    --list-item-color: #ddd;
+    --list-item-hover-bg-color: #333;
+    --list-item-hover-color: #fff;
+    --list-item-selected-bg-color: #335577;
+    --list-item-selected-color: #a0cfff;
+  }
+  
+  /* Estilo general para el contenedor del ListView */
+  .list-view {
     width: 100%;
     max-width: 400px; /* Máximo ancho del ListView */
     margin: 10px 0;
     padding: 5px;
     border-radius: 8px;
-    background-color: #f7f7f7; /* Fondo claro */
-    border: 1px solid #ccc; /* Borde suave */
+    background-color: var(--list-bg-color);
+    border: 1px solid var(--list-border-color);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     overflow: hidden;
     cursor: pointer;
@@ -22,21 +44,21 @@
   .list-view li {
     padding: 10px;
     font-size: 16px;
-    color: #333;
-    border-bottom: 1px solid #eee; /* Separador entre los elementos */
+    color: var(--list-item-color);
+    border-bottom: 1px solid var(--list-border-color); /* Separador entre los elementos */
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   /* Estilo cuando el mouse pasa por encima de un elemento */
   .list-view li:hover {
-    background-color: #e1e1e1; /* Color de fondo al pasar el mouse */
-    color: #000; /* Cambiar el color del texto */
+    background-color: var(--list-item-hover-bg-color);
+    color: var(--list-item-hover-color);
   }
   
   /* Estilo para el elemento seleccionado */
   .list-view li.selected {
-    background-color: #cce5ff; /* Fondo azul claro para el ítem seleccionado */
-    color: #0056b3; /* Color del texto al estar seleccionado */
+    background-color: var(--list-item-selected-bg-color);
+    color: var(--list-item-selected-color);
   }
   
   /* Último ítem de la lista sin borde inferior */

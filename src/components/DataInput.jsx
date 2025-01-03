@@ -19,19 +19,21 @@ function DataInput() {
 
   // Arrays normales de cursos y municipios
   const courses = [
-    "Matemáticas",
-    "Lengua y Literatura",
-    "Ciencias Sociales",
-    "Física",
-    "Química",
+    "Python Nivel I",
+    "Python Nivel II",
+    "Java Nivel I",
+    "Java Nivel II",
+    "C# Nivel I",
+    "C# Nivel II",
   ];
 
   const municipalities = [
-    "Madrid",
-    "Barcelona",
-    "Valencia",
-    "Sevilla",
-    "Zaragoza",
+    "Las Palmas",
+    "Telde",
+    "Arucas",
+    "Santa Brígida",
+    "Ingenio",
+    "Agüimes",
   ];
 
   const handleInputChange = (e) => {
@@ -130,28 +132,35 @@ function DataInput() {
 
           <InputGroup
             label="Municipio:"
-            id="municipalities"
-            name="municipalities"
+            id="municipality"
+            name="municipality"
             value={formData.municipality}
             onChange={handleInputChange}
           />
-          
+
           <button type="submit">Enviar</button>
         </form>
 
         {message && <p className="message">{message}</p>}
 
-        {/* ListView para seleccionar municipio */}
-        <ListView
-          items={municipalities}
-          onSelect={(value) => handleSelectChange(value, "municipality")}
-        />
-
-        {/* ListView para seleccionar curso */}
-        <ListView
-          items={courses}
-          onSelect={(value) => handleSelectChange(value, "course")}
-        />
+        <div className="containerLV">
+          {/* ListView para seleccionar curso */}
+          <div>
+            <h3>Cursos</h3>
+            <ListView
+              items={courses}
+              onSelect={(value) => handleSelectChange(value, "course")}
+            />
+          </div>
+          {/* ListView para seleccionar municipio */}
+          <div>
+            <h3>Municipios</h3>
+            <ListView
+              items={municipalities}
+              onSelect={(value) => handleSelectChange(value, "municipality")}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

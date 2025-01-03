@@ -1,0 +1,39 @@
+/* Contenedor principal */
+.container0 {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
+  
+  /* Contenedor de contenido */
+  .container1 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espacio entre los elementos */
+  }
+  
+  /* Contenedor específico para los botones */
+  .buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;  /* Asegura que los botones ocupen todo el ancho disponible */
+    gap: 20px; /* Espacio entre los botones */
+  }
+  
+  /* Botones */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Estilo de los botones */
+  button:hover {
+    background-color: #ccc;
+  }
+  

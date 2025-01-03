@@ -1,7 +1,6 @@
 // ListView.js
 import React, { useState } from 'react';
 import "./ListView.css";
-
 /**
  * Este componente muestra una lista de elementos.
  * Al hacer clic en un elemento, se actualiza el valor seleccionado.
