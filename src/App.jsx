@@ -43,7 +43,7 @@ function App() {
           <button onClick={closeWindow}>Cerrar Pestaña</button>
         </div>
 
-        <DataInput />
+        <DataInput /> {/* Componente del formulario */}
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-// ListView.js
 import React, { useState } from 'react';
 import "./ListView.css";
 /**

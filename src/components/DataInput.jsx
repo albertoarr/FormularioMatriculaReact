@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { jsPDF } from "jspdf"; // Importamos jsPDF
+import { jsPDF } from "jspdf"; // Importamos jspds
 import Form from "./Form"; // Importamos el componente Form
 import ListView from "./ListView"; // Importamos el componente ListView
 import "./DataInput.css";
 
 function DataInput() {
+  // State para el formulario
   const [formData, setFormData] = useState({
     course: "",
     date: "",
@@ -15,6 +16,7 @@ function DataInput() {
     address: "",
   });
 
+  // State para mensajes para el usuario
   const [message, setMessage] = useState("");
 
   // Arrays normales de cursos y municipios
@@ -36,6 +38,9 @@ function DataInput() {
     "Agüimes",
   ];
 
+  /**
+   * Esta función flecha actualiza los datos del State formData
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -44,6 +49,9 @@ function DataInput() {
     });
   };
 
+  /**
+   * Esta función flecha se utiliza en los ListView para que cambien los States al hacer click
+   */
   const handleSelectChange = (value, field) => {
     setFormData({
       ...formData,
@@ -51,18 +59,25 @@ function DataInput() {
     });
   };
 
+  /**
+   * Esta función flecha crea el pdf si los datos están cumplimentados, si no es así se avisa al
+   * usuario en el mismo formulario.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Formulario enviado:", formData);
+      console.log("Formulario enviado:", formData); // Prueba de datos 
       setMessage("Formulario enviado con éxito");
       generatePDF(); // Generamos el PDF al enviar el formulario
     } else {
-      console.log("Faltan campos por cumplimentar");
+      console.log("Faltan campos por cumplimentar"); // Prueba de datos
       setMessage("Por favor, complete todos los campos");
     }
   };
 
+  /**
+   * Esta función flecha asegura que ningún dato falte por cumplimentar
+   */
   const validateForm = () => {
     for (let i in formData) {
       if (formData[i] === "") {
@@ -72,6 +87,10 @@ function DataInput() {
     return true;
   };
 
+  /**
+   * Esta función flecha utiliza jspdf para generar 
+   * el pdf a partir del State del formulario (si es válido)
+   */
   const generatePDF = () => {
     const doc = new jsPDF();
 

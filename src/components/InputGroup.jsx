@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 /**
  * Esta función representa cada uno de los conjunto label e input.
  * - label es la etiqueta del campo.
