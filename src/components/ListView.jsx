@@ -1,18 +1,27 @@
-import React from 'react';
+// ListView.js
+import React, { useState } from 'react';
+import "./ListView.css";
 
 /**
- * Esta función se usa para crear listViews parecidos a los de JavaFX
- * - items representa a un Array de datos
- * - onItemSelect representa la función que cambia el State correspondiente
+ * Este componente muestra una lista de elementos.
+ * Al hacer clic en un elemento, se actualiza el valor seleccionado.
  */
-function ListView({ items, onItemSelect }) {
+function ListView({ items, onSelect }) {
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    onSelect(item); // Llamar al manejador de selección del padre
+  };
+
   return (
     <div className="list-view">
       <ul>
         {items.map((item, index) => (
           <li
             key={index}
-            onClick={() => onItemSelect(item)} // Llamada a la función cuando se hace clic
+            onClick={() => handleItemClick(item)}
+            className={selectedItem === item ? 'selected' : ''}
           >
             {item}
           </li>

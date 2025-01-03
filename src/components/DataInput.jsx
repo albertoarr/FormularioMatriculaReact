@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
-import InputGroup from './InputGroup'; // Importamos el nuevo componente
+// DataInput.js
+import React, { useState } from "react";
+import InputGroup from "./InputGroup";
+import ListView from "./ListView"; // Importamos el componente ListView
 import "./DataInput.css";
 
 function DataInput() {
   const [formData, setFormData] = useState({
-    course: '',
-    date: '',
-    student: '',
-    gender: '',
-    municipality: '',
-    city: '',
-    address: '',
+    course: "",
+    date: "",
+    student: "",
+    gender: "",
+    municipality: "",
+    city: "",
+    address: "",
   });
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
+
+  // Arrays normales de cursos y municipios
+  const courses = [
+    "Matemáticas",
+    "Lengua y Literatura",
+    "Ciencias Sociales",
+    "Física",
+    "Química",
+  ];
+
+  const municipalities = [
+    "Madrid",
+    "Barcelona",
+    "Valencia",
+    "Sevilla",
+    "Zaragoza",
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,20 +42,27 @@ function DataInput() {
     });
   };
 
+  const handleSelectChange = (value, field) => {
+    setFormData({
+      ...formData,
+      [field]: value, // Actualizamos el campo correspondiente en el estado
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Formulario enviado:", formData);
-      setMessage('Formulario enviado con éxito');
+      setMessage("Formulario enviado con éxito");
     } else {
       console.log("Faltan campos por cumplimentar");
-      setMessage('Por favor, complete todos los campos');
+      setMessage("Por favor, complete todos los campos");
     }
   };
 
   const validateForm = () => {
     for (let i in formData) {
-      if (formData[i] === '') {
+      if (formData[i] === "") {
         return false;
       }
     }
@@ -81,17 +107,9 @@ function DataInput() {
             value={formData.gender}
             onChange={handleInputChange}
             options={[
-              { value: 'Masculino', label: 'Masculino' },
-              { value: 'Femenino', label: 'Femenino' },
+              { value: "Masculino", label: "Masculino" },
+              { value: "Femenino", label: "Femenino" },
             ]}
-          />
-
-          <InputGroup
-            label="Municipio:"
-            id="municipality"
-            name="municipality"
-            value={formData.municipality}
-            onChange={handleInputChange}
           />
 
           <InputGroup
@@ -110,10 +128,30 @@ function DataInput() {
             onChange={handleInputChange}
           />
 
+          <InputGroup
+            label="Municipio:"
+            id="municipalities"
+            name="municipalities"
+            value={formData.municipality}
+            onChange={handleInputChange}
+          />
+          
           <button type="submit">Enviar</button>
         </form>
 
         {message && <p className="message">{message}</p>}
+
+        {/* ListView para seleccionar municipio */}
+        <ListView
+          items={municipalities}
+          onSelect={(value) => handleSelectChange(value, "municipality")}
+        />
+
+        {/* ListView para seleccionar curso */}
+        <ListView
+          items={courses}
+          onSelect={(value) => handleSelectChange(value, "course")}
+        />
       </div>
     </>
   );
