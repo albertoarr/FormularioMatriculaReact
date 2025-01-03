@@ -1,4 +1,3 @@
-// Form.js
 import React from 'react';
 import InputGroup from './InputGroup'; // Componente para cada campo de formulario
 
@@ -68,7 +67,7 @@ function Form({ formData, handleInputChange, handleSubmit, message }) {
         onChange={handleInputChange}
       />
 
-      <button type="submit">Enviar</button>
+      <button type="submit">Guardar</button>
 
       {message && <p className="message">{message}</p>}
     </form>

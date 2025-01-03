@@ -1,6 +1,6 @@
-// DataInput.js
-import React, { useState } from "react";
-import InputGroup from "./InputGroup";
+import { useState } from "react";
+import { jsPDF } from "jspdf"; // Importamos jsPDF
+import Form from "./Form"; // Importamos el componente Form
 import ListView from "./ListView"; // Importamos el componente ListView
 import "./DataInput.css";
 
@@ -56,6 +56,7 @@ function DataInput() {
     if (validateForm()) {
       console.log("Formulario enviado:", formData);
       setMessage("Formulario enviado con éxito");
+      generatePDF(); // Generamos el PDF al enviar el formulario
     } else {
       console.log("Faltan campos por cumplimentar");
       setMessage("Por favor, complete todos los campos");
@@ -71,98 +72,52 @@ function DataInput() {
     return true;
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Formulario de Inscripción", 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Curso: ${formData.course}`, 20, 30);
+    doc.text(`Fecha de matrícula: ${formData.date}`, 20, 40);
+    doc.text(`Alumno: ${formData.student}`, 20, 50);
+    doc.text(`Sexo: ${formData.gender}`, 20, 60);
+    doc.text(`Ciudad: ${formData.city}`, 20, 70);
+    doc.text(`Dirección: ${formData.address}`, 20, 80);
+    doc.text(`Municipio: ${formData.municipality}`, 20, 90);
+
+    doc.save("formulario_inscripcion.pdf");
+  };
+
   return (
-    <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <InputGroup
-            label="Curso:"
-            id="course"
-            name="course"
-            value={formData.course}
-            onChange={handleInputChange}
+    <div className="container">
+      <Form
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        message={message}
+      />
+
+      <div className="containerLV">
+        {/* ListView para seleccionar curso */}
+        <div>
+          <h3>Cursos</h3>
+          <ListView
+            items={courses}
+            onSelect={(value) => handleSelectChange(value, "course")}
           />
-
-          <InputGroup
-            label="Fecha de matrícula:"
-            id="date"
-            name="date"
-            type="date"
-            value={formData.date}
-            onChange={handleInputChange}
+        </div>
+        {/* ListView para seleccionar municipio */}
+        <div>
+          <h3>Municipios</h3>
+          <ListView
+            items={municipalities}
+            onSelect={(value) => handleSelectChange(value, "municipality")}
           />
-
-          <InputGroup
-            label="Alumno:"
-            id="student"
-            name="student"
-            placeholder="Apellidos, Nombre"
-            value={formData.student}
-            onChange={handleInputChange}
-          />
-
-          <InputGroup
-            label="Sexo:"
-            id="gender"
-            name="gender"
-            type="select"
-            value={formData.gender}
-            onChange={handleInputChange}
-            options={[
-              { value: "Masculino", label: "Masculino" },
-              { value: "Femenino", label: "Femenino" },
-            ]}
-          />
-
-          <InputGroup
-            label="Ciudad:"
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-          />
-
-          <InputGroup
-            label="Dirección:"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-          />
-
-          <InputGroup
-            label="Municipio:"
-            id="municipality"
-            name="municipality"
-            value={formData.municipality}
-            onChange={handleInputChange}
-          />
-
-          <button type="submit">Enviar</button>
-        </form>
-
-        {message && <p className="message">{message}</p>}
-
-        <div className="containerLV">
-          {/* ListView para seleccionar curso */}
-          <div>
-            <h3>Cursos</h3>
-            <ListView
-              items={courses}
-              onSelect={(value) => handleSelectChange(value, "course")}
-            />
-          </div>
-          {/* ListView para seleccionar municipio */}
-          <div>
-            <h3>Municipios</h3>
-            <ListView
-              items={municipalities}
-              onSelect={(value) => handleSelectChange(value, "municipality")}
-            />
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
